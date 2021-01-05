@@ -1,13 +1,14 @@
 import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavbarComponent from "./Components/NavbarComponent";
-import Product from "./Components/Product";
+import HomeScreen from "./screens/HomeScreen";
 
 function App() {
   return (
-    <div>
+    <Router>
       <NavbarComponent />
-      <Product />
-    </div>
+      <Route path="/" exact component={HomeScreen} />
+    </Router>
   );
 }
 
