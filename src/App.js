@@ -1,5 +1,13 @@
+import React from "react";
+import NavbarComponent from "./Components/NavbarComponent";
+
 function App() {
-  return <div>Dellcom</div>;
+  return (
+    <div>
+      <NavbarComponent />
+      Dellcom
+    </div>
+  );
 }
 
 export default App;
