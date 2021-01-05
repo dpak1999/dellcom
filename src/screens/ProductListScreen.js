@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import products from "../data/products";
+import { LinkContainer } from "react-router-bootstrap";
 
 const ProductListScreen = () => {
   return (
@@ -10,7 +11,9 @@ const ProductListScreen = () => {
           <h1>Products</h1>
         </Col>
         <Col className="text-right">
-          <Button className="my-3">Create Product</Button>
+          <LinkContainer to="/add">
+            <Button className="my-3">Create Product</Button>
+          </LinkContainer>
         </Col>
       </Row>
       <Table striped bordered hover responsive className="table-sm">
