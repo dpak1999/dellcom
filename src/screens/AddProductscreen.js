@@ -1,19 +1,22 @@
 /** @format */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import FormComponent from "../Components/FormComponent";
 
 const AddProductScreen = () => {
-  const submitHandler = (e) => {
-    e.preventDefault();
-    console.log("item added");
+  const [products, setProducts] = useState([]);
+
+  const addProduct = (product) => {
+    const newProduct = [product, ...products];
+    setProducts(newProduct);
+    console.log(newProduct);
   };
 
   return (
     <Container>
       <h1 className="text-center">Add Product</h1>
-      <FormComponent submitHandler={submitHandler} />
+      <FormComponent addProduct={addProduct} />
     </Container>
   );
 };

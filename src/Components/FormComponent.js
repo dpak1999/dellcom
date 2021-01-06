@@ -2,16 +2,35 @@
 
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { v4 as uuidv4 } from "uuid";
 
 const FormComponent = (props) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
-  // const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(1);
   const [description, setDescription] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    props.addProduct({
+      id: uuidv4(),
+      name: name,
+      price: price,
+      category: category,
+      countInStock: countInStock,
+      description: description,
+    });
+
+    setName("");
+    setPrice(0);
+    setCategory("");
+    setCountInStock(1);
+    setDescription("");
+  };
   return (
-    <Form onSubmit={props.submitHandler}>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="name">
         <Form.Label>Name</Form.Label>
         <Form.Control
@@ -31,16 +50,6 @@ const FormComponent = (props) => {
           onChange={(e) => setPrice(e.target.value)}
         ></Form.Control>
       </Form.Group>
-
-      {/* <Form.Group controlId="brand">
-        <Form.Label>Brand</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter brand"
-          value={brand}
-        //   onChange={(e) => setBrand(e.target.value)}
-        ></Form.Control>
-      </Form.Group> */}
 
       <Form.Group controlId="countInStock">
         <Form.Label>Count In Stock</Form.Label>
