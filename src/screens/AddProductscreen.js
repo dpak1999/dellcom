@@ -5,21 +5,12 @@ import { Container } from "react-bootstrap";
 import FormComponent from "../Components/FormComponent";
 
 const AddProductScreen = () => {
-  const [products, setProducts] = useState([]);
-
   const addProduct = (product) => {
-    const newProduct = [product, ...products];
-    setProducts(newProduct);
+    const newProduct = JSON.parse(localStorage.getItem("product"));
+    newProduct.push(product);
 
     localStorage.setItem("product", JSON.stringify(newProduct));
   };
-
-  useEffect(() => {
-    const product = JSON.parse(localStorage.getItem("product"));
-    if (product) {
-      setProducts(product);
-    }
-  }, []);
 
   return (
     <Container>
