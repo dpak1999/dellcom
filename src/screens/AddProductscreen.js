@@ -11,7 +11,11 @@ const AddProductScreen = () => {
     const newProduct = [product, ...products];
     setProducts(newProduct);
     console.log(newProduct);
+
+    localStorage.setItem("product", JSON.stringify(newProduct));
   };
+
+  useEffect(() => {}, []);
 
   return (
     <Container>
