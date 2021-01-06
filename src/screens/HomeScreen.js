@@ -1,14 +1,26 @@
-import React from "react";
+/** @format */
+
+import React, { useState, useEffect } from "react";
 import Product from "../Components/Product";
-import products from "../data/products";
 
 const HomeScreen = () => {
+  const [localStorageProducts, setLocalStorageProducts] = useState([]);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.target.id);
   };
 
-  return <Product products={products} submit={handleSubmit} />;
+  useEffect(() => {
+    const productsFromLocalStorage = JSON.parse(
+      localStorage.getItem("product")
+    );
+
+    if (productsFromLocalStorage) {
+      setLocalStorageProducts(productsFromLocalStorage);
+    }
+  }, []);
+
+  return <Product products={localStorageProducts} submit={handleSubmit} />;
 };
 
 export default HomeScreen;

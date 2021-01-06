@@ -1,9 +1,22 @@
-import React from "react";
+/** @format */
+
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
-import products from "../data/products";
 import { LinkContainer } from "react-router-bootstrap";
 
 const ProductListScreen = () => {
+  const [allProducts, setAllProducts] = useState([]);
+
+  useEffect(() => {
+    const productsFromLocalStorage = JSON.parse(
+      localStorage.getItem("product")
+    );
+
+    if (productsFromLocalStorage) {
+      setAllProducts(productsFromLocalStorage);
+    }
+  }, []);
+
   return (
     <Container>
       <Row className="align-items-center">
@@ -29,7 +42,7 @@ const ProductListScreen = () => {
         </thead>
 
         <tbody>
-          {products.map((product) => (
+          {allProducts.map((product) => (
             <tr key={product.id}>
               <td>{product.id}</td>
               <td>{product.name}</td>
