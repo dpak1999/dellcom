@@ -38,6 +38,7 @@ const ProductListScreen = () => {
             <th>CATEGORY</th>
             <th>PRICE</th>
             <th>STOCK</th>
+            <th>STATUS</th>
           </tr>
         </thead>
 
@@ -50,6 +51,7 @@ const ProductListScreen = () => {
               <td>{product.category}</td>
               <td>Rs.{product.price}</td>
               <td>{product.countInStock}</td>
+              <td>{product.status}</td>
             </tr>
           ))}
         </tbody>
