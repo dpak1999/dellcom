@@ -39,6 +39,7 @@ const ProductListScreen = () => {
             <th>PRICE</th>
             <th>STOCK</th>
             <th>STATUS</th>
+            <th></th>
           </tr>
         </thead>
 
@@ -52,6 +53,11 @@ const ProductListScreen = () => {
               <td>Rs.{product.price}</td>
               <td>{product.countInStock}</td>
               <td>{product.status}</td>
+              <td>
+                <LinkContainer to={`/edit/${product.id}`}>
+                  <Button>Edit Product</Button>
+                </LinkContainer>
+              </td>
             </tr>
           ))}
         </tbody>

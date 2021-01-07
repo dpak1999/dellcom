@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
@@ -12,8 +14,8 @@ const NavbarComponent = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-            <LinkContainer to="/admin">
-              <Nav.Link>Admin</Nav.Link>
+            <LinkContainer to="/backend">
+              <Nav.Link>All products</Nav.Link>
             </LinkContainer>
             <NavDropdown title="Deepak" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
