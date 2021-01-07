@@ -19,7 +19,9 @@ const NavbarComponent = () => {
             </LinkContainer>
             <NavDropdown title="Deepak" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">My Cart</NavDropdown.Item>
+              <LinkContainer to="/cart">
+                <NavDropdown.Item>My Cart</NavDropdown.Item>
+              </LinkContainer>
               <NavDropdown.Item href="#action/3.3">My orders</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Settings</NavDropdown.Item>
