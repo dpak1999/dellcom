@@ -12,7 +12,7 @@ const Product = ({ products, submit }) => {
           <Card.Body>
             <h4>{item.name}</h4>
             <p>Rs. {item.price}</p>
-            <Button block id={item.name} onClick={submit} variant="primary">
+            <Button block id={item.id} onClick={submit} variant="primary">
               Add to Cart
             </Button>
           </Card.Body>

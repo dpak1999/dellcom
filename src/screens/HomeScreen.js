@@ -19,12 +19,21 @@ const HomeScreen = () => {
       numReviews: 12,
     },
   ]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target.id);
+
+  const searchArray = (id, array) => {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].id === id) {
+        return array[i];
+      }
+    }
   };
 
   useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("cart"));
+    if (!data) {
+      localStorage.setItem("cart", "[]");
+    }
+
     const productsFromLocalStorage = JSON.parse(
       localStorage.getItem("product")
     );
@@ -33,6 +42,16 @@ const HomeScreen = () => {
       setLocalStorageProducts(productsFromLocalStorage);
     }
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const productData = JSON.parse(localStorage.getItem("product"));
+    const getCart = searchArray(e.target.id, productData);
+
+    const cartItem = JSON.parse(localStorage.getItem("cart"));
+    cartItem.push(getCart);
+    localStorage.setItem("cart", JSON.stringify(cartItem));
+  };
 
   return <Product products={localStorageProducts} submit={handleSubmit} />;
 };
