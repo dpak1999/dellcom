@@ -1,10 +1,18 @@
 /** @format */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 const NavbarComponent = () => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("cart"));
+    if (data) {
+      setCount(data.length);
+    }
+  }, []);
+
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
       <Container>
@@ -16,6 +24,9 @@ const NavbarComponent = () => {
           <Nav className="ml-auto">
             <LinkContainer to="/backend">
               <Nav.Link>All products</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/cart">
+              <Nav.Link>My cart({count})</Nav.Link>
             </LinkContainer>
             <NavDropdown title="Deepak" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
