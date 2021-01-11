@@ -12,8 +12,28 @@ const CartScreen = () => {
     }
   }, []);
 
-  const handleClick = (e) => {
-    console.log("clicked");
+  const handleIncrement = (e) => {
+    const productId = e.target.id;
+    const cartItem = JSON.parse(localStorage.getItem("cart"));
+    const indexOfProduct = cartItem.findIndex((e) => e.id === productId);
+    let newArray = [...cartItem];
+    newArray[indexOfProduct] = {
+      ...newArray[indexOfProduct],
+      count: newArray[indexOfProduct].count + 1,
+    };
+    localStorage.setItem("cart", JSON.stringify(newArray));
+  };
+
+  const handleDecrement = (e) => {
+    const productId = e.target.id;
+    const cartItem = JSON.parse(localStorage.getItem("cart"));
+    const indexOfProduct = cartItem.findIndex((e) => e.id === productId);
+    let newArray = [...cartItem];
+    newArray[indexOfProduct] = {
+      ...newArray[indexOfProduct],
+      count: newArray[indexOfProduct].count - 1,
+    };
+    localStorage.setItem("cart", JSON.stringify(newArray));
   };
   return (
     <Container>
@@ -32,11 +52,16 @@ const CartScreen = () => {
                   </Col>
                   <Col className="my-auto" sm={4}>
                     <i
-                      onClick={handleClick}
+                      id={item.id}
+                      onClick={handleIncrement}
                       className="lni lni-circle-plus mr-2"
                     ></i>
-                    {item.countInStock}
-                    <i className="lni lni-circle-minus ml-2"></i>
+                    {item.count}
+                    <i
+                      id={item.id}
+                      onClick={handleDecrement}
+                      className="lni lni-circle-minus ml-2"
+                    ></i>
                   </Col>
                   <Col className="my-auto" sm={2}>
                     Rs {item.price}

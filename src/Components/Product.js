@@ -8,7 +8,11 @@ const Product = ({ products, submit }) => {
     return (
       <Col lg={4} md={6} sm={12} key={item.id}>
         <Card className="my-3">
-          <Card.Img variant="top" src={item.image} />
+          <Card.Img
+            variant="top"
+            style={{ height: "250px" }}
+            src={item.image}
+          />
           <Card.Body>
             <h4>{item.name}</h4>
             <p>Rs. {item.price}</p>
