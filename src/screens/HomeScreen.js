@@ -45,12 +45,24 @@ const HomeScreen = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const productId = e.target.id;
     const productData = JSON.parse(localStorage.getItem("product"));
-    const getCart = searchArray(e.target.id, productData);
+    const getCart = searchArray(productId, productData);
 
     const cartItem = JSON.parse(localStorage.getItem("cart"));
-    cartItem.push(getCart);
-    localStorage.setItem("cart", JSON.stringify(cartItem));
+
+    if (!searchArray(productId, cartItem)) {
+      cartItem.push(getCart);
+      localStorage.setItem("cart", JSON.stringify(cartItem));
+    } else {
+      const indexOfProduct = cartItem.findIndex((e) => e.id === productId);
+      let newArray = [...cartItem];
+      newArray[indexOfProduct] = {
+        ...newArray[indexOfProduct],
+        count: newArray[indexOfProduct].count + 1,
+      };
+      localStorage.setItem("cart", JSON.stringify(newArray));
+    }
   };
 
   return <Product products={localStorageProducts} submit={handleSubmit} />;

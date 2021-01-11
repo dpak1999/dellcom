@@ -27,6 +27,7 @@ const FormComponent = (props) => {
       countInStock: countInStock,
       description: description,
       status: status,
+      count: 1,
     });
 
     setName("");
