@@ -1,40 +1,46 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
-import { Container, Row, ListGroup, Image, Button, Col } from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
+import { PayPalButton } from "react-paypal-button-v2";
+import { CartContext } from "../context";
+import { Container, Row, ListGroup, Image, Col } from "react-bootstrap";
 
 const CartScreen = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [sdk, setSdk] = useState(false);
+  const [paid, setPaid] = useState(false);
+  const { handleDecrement, handleIncrement, cartItems } = useContext(
+    CartContext
+  );
+
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("cart"));
-    if (data) {
-      setCartItems(data);
+    const clientId =
+      "AZbFlnp5__3C6L3PH1EDEq7UEN97Zd9jaZm0U1yu8fYM-j31c2MYKEGYIE8tGj_ubwL53DeWXFYOEs2G";
+
+    const payPalScript = async () => {
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
+      script.onload = () => {
+        setSdk(true);
+      };
+      document.body.appendChild(script);
+    };
+
+    if (!window.paypal) {
+      payPalScript();
+    } else {
+      setSdk(true);
+      setPaid(true);
     }
-  }, []);
+  }, [paid]);
 
-  const handleIncrement = (e) => {
-    const productId = e.target.id;
-    const cartItem = JSON.parse(localStorage.getItem("cart"));
-    const indexOfProduct = cartItem.findIndex((e) => e.id === productId);
-    let newArray = [...cartItem];
-    newArray[indexOfProduct] = {
-      ...newArray[indexOfProduct],
-      count: newArray[indexOfProduct].count + 1,
-    };
-    localStorage.setItem("cart", JSON.stringify(newArray));
+  const successHandler = (paymentResult) => {
+    setPaid(true);
+    console.log(paymentResult);
+    console.log("paid");
   };
 
-  const handleDecrement = (e) => {
-    const productId = e.target.id;
-    const cartItem = JSON.parse(localStorage.getItem("cart"));
-    const indexOfProduct = cartItem.findIndex((e) => e.id === productId);
-    let newArray = [...cartItem];
-    newArray[indexOfProduct] = {
-      ...newArray[indexOfProduct],
-      count: newArray[indexOfProduct].count - 1,
-    };
-    localStorage.setItem("cart", JSON.stringify(newArray));
-  };
   return (
     <Container>
       <h1>Your cart</h1>
@@ -71,10 +77,16 @@ const CartScreen = () => {
             </ListGroup>
           );
         })}
+        <div className="text-right">
+          {paid ? (
+            <h2>Order paid</h2>
+          ) : !sdk ? (
+            <h1>Loading...</h1>
+          ) : (
+            <PayPalButton amount={200} onSuccess={successHandler} />
+          )}
+        </div>
       </ListGroup>
-      <Button variant="warning" className="float-right mb-4">
-        Proceed to buy
-      </Button>
     </Container>
   );
 };
