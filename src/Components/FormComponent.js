@@ -22,12 +22,13 @@ const FormComponent = (props) => {
       id: uuidv4(),
       name: name,
       image: image,
-      price: price,
+      price: parseInt(price),
       category: category,
       countInStock: countInStock,
       description: description,
       status: status,
       count: 1,
+      totalPrice: parseInt(price),
     });
 
     setName("");

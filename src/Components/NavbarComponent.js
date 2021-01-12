@@ -1,18 +1,12 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../context";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 const NavbarComponent = () => {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("cart"));
-    if (data) {
-      setCount(data.length);
-    }
-  }, []);
-
+  const { count } = useContext(CartContext);
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
       <Container>

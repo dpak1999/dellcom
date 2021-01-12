@@ -1,23 +1,18 @@
 /** @format */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { CartContext } from "../context";
 import { Container } from "react-bootstrap";
 import FormComponent from "../Components/FormComponent";
 
 const AddProductScreen = () => {
+  const { addProduct } = useContext(CartContext);
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("product"));
     if (!data) {
       localStorage.setItem("product", "[]");
     }
   }, []);
-
-  const addProduct = (product) => {
-    const newProduct = JSON.parse(localStorage.getItem("product"));
-    newProduct.push(product);
-
-    localStorage.setItem("product", JSON.stringify(newProduct));
-  };
 
   return (
     <Container>
